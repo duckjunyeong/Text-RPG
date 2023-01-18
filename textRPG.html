@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="textRPG.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="respawnbackground" style="display: none;">
+        <div class="respawnmodal">
+            <h1>리스폰 중 입니다...</h1>
+        </div>
+    </div>
+
+
+
+    <form action="" class="getusernicknameform">
+        <input type="text " class="getusernicknameinput">
+        <button class="getusernicknamebutton">생성하기</button>
+    </form>
+
+
+
+    <div id="nomalmode" style="display: none;">
+
+        <div class="userinforwrapper">
+            <div class="userinfor"></div>
+        </div>
+
+        <div class="startmenu">
+            <div id="모험">1. 모험</div>
+            <div id="회복">2. 회복</div>
+            <div id="종료">3. 상점</div>
+        </div>
+
+        <form action="" class="startmenuform">
+            <input type="text" class="startmenuinput">
+            <button class="startmenubutton">GO</button>
+        </form>
+    </div>
+
+    <div id="adventuremode" style="display: none;">
+
+        <div class="adventuremodeuserinforwrapper">
+            <div class="adventuremodeuserinfor"></div>
+        </div>
+
+        <div class="adventuremenu">
+            <div id="모험">1. 공격</div>
+            <div id="회복">2. 회복</div>
+            <div id="종료">3. 도망</div>
+        </div>
+
+        <form action="" class="adventureform">
+            <input type="text" class="adventureinput">
+            <button class="adventurebutton">GO</button>
+        </form>
+
+        <div class="monsterprofile"></div>
+        <div class="resulthistory"></div>
+    </div>
+
+
+    <div class="storemode" style="display: none;">
+        <h1>이곳은 상점입니다!</h1>
+        <p class="currentusermoney"></p>
+        <div class="itemlist">
+
+        </div>
+        <button class="normalmodebutton">normal mode</button>
+    </div>
+    <script src="./textRPG.js"></script>
+</body>
+
+</html>
