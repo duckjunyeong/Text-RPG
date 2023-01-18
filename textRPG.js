@@ -211,7 +211,17 @@ class Store{
     }
     onStoreMenuButton(){
         $itemList.addEventListener('click', this.purchaseItem)
-        // $normalModeButton.addEventListener('click', this.toNormalMode)
+        $normalModeButton.addEventListener('click', this.toNormalMode)
+    }
+    
+    toNormalMode = () => {
+        $storeMode.style.display = "none";
+        $nomalMode.style.display = "block";
+        this.updateUser();
+
+    }
+    updateUser(){
+        $userInfor.textContent =`${this.hero.name}님 HP: ${this.hero.hp} XP: ${this.hero.xp} ATT: ${this.hero.att} MONEY:${this.hero.money}`
     }
    
     purchaseItem = (e) => {
