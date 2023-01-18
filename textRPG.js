@@ -190,7 +190,7 @@ class Hero{
         this.xp = 0;
         this.att = 10; 
         this.heart = true;
-        this.money = 4000;
+        this.money = 6000;
         this.bag = [];
         this.mode = 'normal';
     }
@@ -198,7 +198,8 @@ class Hero{
 
 class Store{
     constructor(hero){
-        this.hero = hero
+        this.hero = hero;
+        this.item = null;
         this.itemsArray = [
             {name:"posion", price: 500,},
             {name: 'shoes', price: 1000,},
@@ -215,50 +216,98 @@ class Store{
    
     purchaseItem = (e) => {
         if(e.target.tagName === 'BUTTON'){
-            const item = JSON.parse(JSON.stringify(this.itemsArray[e.target.className]))
-            if(this.isHaveMoney(item)){
-                if(confirm('구입하시겠습니까?')){
-                    this.hero.money -= item.price;
-                    this.isFirstPurchase(item)
-                    this.updateUserMoney()
-                    console.log(this.hero.bag)
+            this.item = JSON.parse(JSON.stringify(this.itemsArray[e.target.className]))
+            if(this.isHaveMoney()){
+                console.log('구입가능')
+                if(this.isFirstPurchase() || !this.isItemExisting()){
+                    this.item.count = 1;
+                    this.hero.bag.push(this.item)
+                    this.minusMoney();
+                    console.log(this.hero.bag);
+                    return
                 }
+                this.addItemCount();
+                console.log(this.hero.bag)
             }else{
-                console.log('돈이 없습니다')
+                console.log('돈이 없습니다.')
+            }
+            // if(this.isHaveMoney(item)){
+            //     if(confirm('구입하시겠습니까?')){
+            //         this.hero.money -= item.price;
+            //         this.isFirstPurchase(item)
+            //         this.updateUserMoney()
+            //         console.log(this.hero.bag)
+            //     }
+            // }else{
+            //     console.log('돈이 없습니다')
+            // }
+        }
+    }
+
+    addItemCount(){
+        for(let i = 0; i < this.hero.bag.length; i++){
+            if(this.item.name === this.hero.bag[i].name){
+                this.hero.bag[i].count++
+                break
             }
         }
+        this.minusMoney()
     }
 
-    isFirstPurchase(item){
+    minusMoney(){
+        this.hero.money -= this.item.price;
+        this.updateUserMoney();
+    }
+
+    isItemExisting(){
+      return this.hero.bag.some((Element) => Element.name === this.item.name)
+    }
+
+    isFirstPurchase(){
         if(this.hero.bag.length === 0){
-            this.addItemToBag(item)
-        }else{
-            this.isExistingItem(item)
+            return true;
         }
+        return false;
     }
 
-    addItemToBag(item){
-        item.count = 1;
-        this.hero.bag.push(item)
+    isHaveMoney(){
+       if(this.item.price <= this.hero.money){
+            return true;
+       }
+       return false;
+        
     }
 
-    isExistingItem(item){  
-     for(let i = 0; i < this.hero.bag.length; i++){
-        if(this.hero.bag[i].name === item.name){
-           this.hero.bag[i].count++
-           break; 
-        }else{
-            this.addItemToBag(item)
-        }
-     }
+    // isFirstPurchase(item){
+    //     if(this.hero.bag.length === 0){
+    //         this.addItemToBag(item)
+    //     }else{
+    //         this.isExistingItem(item)
+    //     }
+    // }
+
+    // addItemToBag(item){
+    //     item.count = 1;
+    //     this.hero.bag.push(item)
+    // }
+
+    // isExistingItem(item){  
+    //  for(let i = 0; i < this.hero.bag.length; i++){
+    //     if(this.hero.bag[i].name === item.name){
+    //        this.hero.bag[i].count++
+    //        break; 
+    //     }else{
+    //         this.addItemToBag(item)
+    //     }
+    //  }
 
        
-    }
+    // }
     
-    isHaveMoney(item){
-        if(this.hero.money >= item.price){
+    isHaveMoney(){
+        if(this.hero.money >= this.item.price){
             return true;
-        }else if(this.hero.money < item.price){
+        }else if(this.hero.money < this.item.price){
            return false;
         }
     }
